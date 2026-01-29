@@ -729,14 +729,14 @@
                         <div class="details-section">
                             <div class="details-title">The Challenge</div>
                             <p class="details-text">
-                                Over-permissioned accounts and broad role assignments created security risks and compliance gaps across Azure infrastructure.
+                                Over permissioned accounts and broad role assignments created security risks and compliance gaps across Azure infrastructure.
                             </p>
                         </div>
                         <div class="details-section">
                             <div class="details-title">How I Did It</div>
                             <ul>
                                 <li>Conducted access review identifying excessive permissions across subscription and resource groups</li>
-                                <li>Designed custom RBAC roles for specific job functions (database admin, network operator)</li>
+                                <li>Designed custom RBAC roles for specific job functions (help desk, engineering, clinical)</li>
                                 <li>Implemented role assignments with appropriate scope (subscription, resource group, resource level)</li>
                             </ul>
                         </div>
@@ -826,7 +826,7 @@
                         <div class="details-section">
                             <div class="details-title">The Challenge</div>
                             <p class="details-text">
-                                Healthcare infrastructure with 200+ heterogeneous servers (Windows/Linux) lacked unified endpoint detection and response capabilities, creating visibility gaps and increasing incident response time.
+                                Healthcare infrastructure with 200+ servers (Windows/Linux) lacked unified endpoint detection and response capabilities, creating visibility gaps and increasing incident response time.
                             </p>
                         </div>
                         <div class="details-section">
@@ -846,7 +846,7 @@ foreach ($server in $servers) {
                                 <li>Built PowerShell automation framework for zero-touch onboarding</li>
                                 <li>Created EDR baseline policies tailored for healthcare environment</li>
                                 <li>Integrated MDE telemetry with Sentinel using Log Analytics connector</li>
-                                <li>Developed health monitoring dashboard to track deployment progress</li>
+                                <li>Developed monitoring dashboard to track deployment progress</li>
                             </ul>
                         </div>
                         <div class="details-section">
@@ -857,11 +857,11 @@ foreach ($server in $servers) {
                                     <div class="metric-label">Servers Onboarded</div>
                                 </div>
                                 <div class="metric">
-                                    <div class="metric-value">3 days</div>
+                                    <div class="metric-value">5 days</div>
                                     <div class="metric-label">Deployment Time</div>
                                 </div>
                                 <div class="metric">
-                                    <div class="metric-value">100%</div>
+                                    <div class="metric-value">95%</div>
                                     <div class="metric-label">Coverage</div>
                                 </div>
                             </div>
@@ -918,7 +918,6 @@ def enrich_ioc(indicator, indicator_type):
                                 <li>Developed Python scripts for automatic IOC enrichment via VirusTotal, AbuseIPDB APIs</li>
                                 <li>Created Logic App playbooks for automated incident categorization and assignment</li>
                                 <li>Built automatic response actions for low-severity incidents (account resets, device isolation)</li>
-                                <li>Implemented Slack integration for real-time analyst notifications</li>
                             </ul>
                         </div>
                         <div class="details-section">
@@ -978,7 +977,6 @@ def enrich_ioc(indicator, indicator_type):
                                 <li>Identified suspicious PowerShell execution patterns indicating potential APT activity</li>
                                 <li>Mapped detections to MITRE ATT&CK framework (T1059, T1003, T1055)</li>
                                 <li>Created custom analytics rules for behavior-based threat detection</li>
-                                <li>Built PowerShell scripts for Azure security posture auditing (compliance gaps, misconfigured NSGs)</li>
                             </ul>
                             <div class="code-block">// KQL hunting query example
 SecurityEvent
@@ -989,13 +987,8 @@ SecurityEvent
                         </div>
                         <div class="details-section">
                             <div class="details-title">Impact</div>
-                            <div class="metrics">
                                 <div class="metric">
-                                    <div class="metric-value">3</div>
-                                    <div class="metric-label">APTs Identified</div>
-                                </div>
-                                <div class="metric">
-                                    <div class="metric-value">25+</div>
+                                    <div class="metric-value">10+</div>
                                     <div class="metric-label">Detection Rules</div>
                                 </div>
                             </div>
@@ -1035,10 +1028,9 @@ SecurityEvent
                                 Established security review process and leveraged modern development practices:
                             </p>
                             <ul>
-                                <li>Created threat modeling framework based on STRIDE methodology</li>
                                 <li>Conducted architecture reviews for 10+ vendor solutions evaluating authentication, data flow, encryption</li>
                                 <li>Reviewed internal applications for OWASP Top 10 vulnerabilities</li>
-                                <li>Used AI coding assistants (GitHub Copilot, ChatGPT) to accelerate Python/PowerShell automation development by 40%</li>
+                                <li>Used AI coding assistants (GitHub Copilot, ChatGPT) to accelerate Python/PowerShell automation development</li>
                                 <li>Reduced time spent writing boilerplate code for data parsing, API integrations, and automation workflows</li>
                             </ul>
                         </div>
@@ -1050,8 +1042,8 @@ SecurityEvent
                                     <div class="metric-label">Reviews Conducted</div>
                                 </div>
                                 <div class="metric">
-                                    <div class="metric-value">40%</div>
-                                    <div class="metric-label">Dev Time Saved</div>
+                                    <div class="metric-value">1hr</div>
+                                    <div class="metric-label">Dev Time Saved per Day</div>
                                 </div>
                             </div>
                         </div>
