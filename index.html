@@ -985,11 +985,12 @@ SecurityEvent
 | where CommandLine contains_any ("IEX", "Invoke-Expression")
 | project TimeGenerated, Computer, Account, CommandLine</div>
                         </div>
-                        <div class="metrics">
-                               <div class="metric">
-                                    <div class="metric-value">3</div>
-                                    <div class="metric-label">APTs Identified</div>
-                                </div>
+                        <div class="details-section">
+                            <div class="details-title">Impact</div>
+                            <div class="metrics">
+                                <div class="metric-value">3</div>
+                                <div class="metric-label">APTs Identified</div>
+                        </div>
                         <div class="details-section">
                             <div class="details-title">Impact</div>
                                 <div class="metric">
