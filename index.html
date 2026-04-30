@@ -534,7 +534,7 @@
         <header>
             <div class="header-line"></div>
             <h1>STANISLAV BERDAR</h1>
-            <p class="subtitle">Security Engineer</p>
+            <p class="subtitle">Detection Engineer</p>
         </header>
 
         <nav>
@@ -549,14 +549,29 @@
         <div id="about" class="page-section active">
             <div class="about-content">
                 <p class="about-intro">
-                    I'm a Security Engineer working in healthcare, focusing on cloud security, incident response, and threat detection. I spend my time building security controls in Azure and GCP, hunting for threats, and investigating incidents when things go sideways. My goal is to make security work better without getting in people's way.
+                    I build detection systems that find attackers based on how they actually behave — not just what tools they use. My work sits at the intersection of threat hunting, detection engineering, and incident response: writing KQL logic against MITRE ATT&CK techniques, automating triage workflows, and closing the gap between attacker activity and analyst visibility. I care about durable detections, low-noise pipelines, and understanding adversary tradecraft well enough to anticipate it.
                 </p>
                 
                 <div class="about-section">
                     <h2 class="section-heading">What I Do</h2>
-                    <p class="details-text">
-                        Most of my work involves four main areas: designing zero-trust security for Azure and M365, automating threat detection and response, hunting for suspicious activity in our environment, and investigating security incidents using EDR tools and forensic techniques. I write a lot of Python, PowerShell, and KQL to automate repetitive tasks and speed up investigations. Whether I'm digging into a potential malware infection or building automation to cut incident triage time from an hour to 15 minutes, I'm focused on security that actually works in the real world and protects both data and people.
-                    </p>
+                    <div class="skills-grid" style="margin-top: 16px;">
+                        <div class="skill-category">
+                            <div class="skill-category-title">Detection Engineering</div>
+                            <p class="details-text" style="margin-bottom: 0;">I write behavioral detections grounded in attacker technique — process injection patterns, LOLBin abuse, credential access signals — rather than IOC matching. I map detection logic to MITRE ATT&CK and tune for signal quality over alert volume.</p>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-category-title">Threat Hunting</div>
+                            <p class="details-text" style="margin-bottom: 0;">Proactive hunting using KQL across endpoint, identity, and network telemetry. I look for anomalies that signature-based rules miss — unusual parent-child process chains, lateral movement patterns, authentication anomalies.</p>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-category-title">Incident Response & Automation</div>
+                            <p class="details-text" style="margin-bottom: 0;">End-to-end IR from triage through containment. I've built Python and Logic App automation that cut per-incident triage time from an hour to 15 minutes across 200+ monthly alerts — enriching IOCs automatically and routing signal before a human touches it.</p>
+                        </div>
+                        <div class="skill-category">
+                            <div class="skill-category-title">SIEM Engineering</div>
+                            <p class="details-text" style="margin-bottom: 0;">Microsoft Sentinel is my primary platform — data connectors, analytic rules, workbooks, and SOAR playbooks. I also have hands-on experience evaluating and standing up SIEM infrastructure from scratch, including open-source alternatives like Wazuh in cloud-native environments.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="about-section">
@@ -573,72 +588,46 @@
 
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <div class="skill-category-title">Cloud Platforms</div>
-                            <div class="skill-list">
-                                <span class="skill-item">Microsoft Azure</span>
-                                <span class="skill-item">Google Cloud</span>
-                                <span class="skill-item">Azure AD / Entra ID</span>
-                                <span class="skill-item">Microsoft 365</span>
-                                <span class="skill-item">Google Workspace</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <div class="skill-category-title">Security Tools</div>
+                            <div class="skill-category-title">Detection & SIEM</div>
                             <div class="skill-list">
                                 <span class="skill-item">Microsoft Sentinel</span>
-                                <span class="skill-item">Sophos EDR</span>
-                                <span class="skill-item">Defender for Endpoint</span>
-                                <span class="skill-item">Defender for Cloud</span>
-                                <span class="skill-item">Azure Firewall</span>
+                                <span class="skill-item">KQL</span>
+                                <span class="skill-item">Wazuh</span>
+                                <span class="skill-item">Google SecOps</span>
+                                <span class="skill-item">MITRE ATT&CK</span>
+                                <span class="skill-item">Behavioral Analytics</span>
+                                <span class="skill-item">SOAR Playbooks</span>
                             </div>
                         </div>
                         <div class="skill-category">
                             <div class="skill-category-title">Incident Response & Forensics</div>
                             <div class="skill-list">
-                                <span class="skill-item">Digital Forensics</span>
+                                <span class="skill-item">Defender for Endpoint</span>
                                 <span class="skill-item">EDR Investigation</span>
+                                <span class="skill-item">Process Analysis</span>
+                                <span class="skill-item">Digital Forensics</span>
                                 <span class="skill-item">Malware Analysis</span>
                                 <span class="skill-item">Threat Hunting</span>
                             </div>
                         </div>
                         <div class="skill-category">
-                            <div class="skill-category-title">Programming & Scripting</div>
+                            <div class="skill-category-title">Automation & Scripting</div>
                             <div class="skill-list">
                                 <span class="skill-item">Python</span>
                                 <span class="skill-item">PowerShell</span>
-                                <span class="skill-item">KQL</span>
-                                <span class="skill-item">Bicep</span>
-                                <span class="skill-item">Terraform</span>
-                                <span class="skill-item">ARM Templates</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <div class="skill-category-title">DevOps & Automation</div>
-                            <div class="skill-list">
-                                <span class="skill-item">Azure DevOps</span>
-                                <span class="skill-item">CI/CD Pipelines</span>
-                                <span class="skill-item">Infrastructure as Code</span>
-                                <span class="skill-item">SOAR Playbooks</span>
                                 <span class="skill-item">REST APIs</span>
+                                <span class="skill-item">Logic Apps</span>
+                                <span class="skill-item">Anthropic API</span>
                             </div>
                         </div>
                         <div class="skill-category">
-                            <div class="skill-category-title">Networking</div>
+                            <div class="skill-category-title">Cloud & Identity</div>
                             <div class="skill-list">
-                                <span class="skill-item">VNets & Subnets</span>
-                                <span class="skill-item">Load Balancers</span>
-                                <span class="skill-item">NSGs</span>
-                                <span class="skill-item">Private Link</span>
-                                <span class="skill-item">Azure DNS</span>
-                            </div>
-                        </div>
-                        <div class="skill-category">
-                            <div class="skill-category-title">Security Architecture</div>
-                            <div class="skill-list">
-                                <span class="skill-item">Zero Trust</span>
-                                <span class="skill-item">Conditional Access</span>
-                                <span class="skill-item">Azure RBAC</span>
-                                <span class="skill-item">SIEM/SOAR</span>
+                                <span class="skill-item">GCP</span>
+                                <span class="skill-item">Microsoft Azure</span>
+                                <span class="skill-item">Entra ID / Azure AD</span>
+                                <span class="skill-item">Okta</span>
+                                <span class="skill-item">Microsoft 365</span>
                             </div>
                         </div>
                         <div class="skill-category">
@@ -659,23 +648,27 @@
 
         <!-- Experience Section -->
         <div id="experience" class="page-section">
+
+            <!-- FLEXE -->
             <div class="job-header">
                 <div>
                     <div class="job-title">Security Engineer II</div>
-                    <div class="company">Overlake Hospital</div>
-                    <div class="location">Bellevue, WA</div>
+                    <div class="company">Flexe</div>
+                    <div class="location">Seattle, WA</div>
                 </div>
                 <div class="date">
-                    April 2022 – Present
+                    March 2026 – Present
                 </div>
             </div>
 
             <div class="achievements">
+
+            <!-- Flexe Card 1: Security Architecture Assessment -->
             <div class="achievement-item">
                 <div class="achievement-header">
                     <div class="achievement-icon"></div>
                     <div class="achievement-summary">
-                        Designed Conditional Access policies for zero-trust architecture across Azure and M365, implementing location-based controls and MFA enforcement.
+                        Conducted comprehensive cloud security architecture assessment across GCP and AWS, identifying unmonitored attack surface across IAM, S3, VPC, and CloudFront layers, then authored a detection program charter and delivered a prioritized remediation roadmap to leadership.
                     </div>
                     <div class="expand-indicator">+</div>
                 </div>
@@ -684,36 +677,299 @@
                         <div class="details-section">
                             <div class="details-title">The Challenge</div>
                             <p class="details-text">
-                                Healthcare organization needed to implement zero-trust security controls while maintaining user productivity and meeting compliance requirements.
+                                Joined as the organization's only dedicated security hire and discovered the existing SIEM (Chronicle/Google SecOps, managed by a third-party MSSP) had been decommissioned, leaving no alerting or detection infrastructure across a multi-cloud environment spanning GCP and AWS.
                             </p>
                         </div>
                         <div class="details-section">
                             <div class="details-title">How I Did It</div>
                             <ul>
-                                <li>Designed 5 core Conditional Access policies covering location-based controls, device compliance, and MFA requirements</li>
-                                <li>Implemented risk-based authentication for sensitive applications and privileged accounts</li>
-                                <li>Balanced security requirements with clinical workflow needs to maintain productivity</li>
+                                <li>Conducted a comprehensive security architecture assessment across GCP and AWS, mapping unmonitored attack surface across IAM, S3, VPC, and CloudFront layers</li>
+                                <li>Authored a detection program charter establishing the foundational framework, data sources, and detection priorities for building from zero</li>
+                                <li>Delivered a prioritized remediation roadmap to leadership, sequenced by risk exposure and detection coverage gaps</li>
+                                <li>Evaluated Wazuh as an open-source SIEM candidate suited to the multi-cloud stack, producing a cost comparison analysis against commercial alternatives</li>
                             </ul>
                         </div>
                         <div class="details-section">
                             <div class="details-title">Impact</div>
                             <div class="metrics">
                                 <div class="metric">
-                                    <div class="metric-value">5</div>
-                                    <div class="metric-label">CA Policies</div>
+                                    <div class="metric-value">Roadmap</div>
+                                    <div class="metric-label">Delivered to Leadership</div>
                                 </div>
                                 <div class="metric">
-                                    <div class="metric-value">Zero Trust</div>
-                                    <div class="metric-label">Architecture</div>
+                                    <div class="metric-value">Charter</div>
+                                    <div class="metric-label">Detection Program</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">GCP + AWS</div>
+                                    <div class="metric-label">Multi-Cloud Coverage</div>
                                 </div>
                             </div>
                         </div>
                         <div class="details-section">
                             <div class="tech-tags">
-                                <span class="tech-tag">Azure AD</span>
-                                <span class="tech-tag">Conditional Access</span>
-                                <span class="tech-tag">Zero Trust</span>
-                                <span class="tech-tag">MFA</span>
+                                <span class="tech-tag">GCP</span>
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Wazuh</span>
+                                <span class="tech-tag">Google SecOps</span>
+                                <span class="tech-tag">Okta</span>
+                                <span class="tech-tag">Security Architecture</span>
+                                <span class="tech-tag">Detection Engineering</span>
+                                <span class="tech-tag">SIEM Evaluation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flexe Card 2: Questionnaire Automation -->
+            <div class="achievement-item">
+                <div class="achievement-header">
+                    <div class="achievement-icon"></div>
+                    <div class="achievement-summary">
+                        Built an AI-powered security questionnaire automation tool using Python and the Anthropic API, integrated with Jira, that significantly reduced manual review time and eliminated a backlog of outstanding security assessments.
+                    </div>
+                    <div class="expand-indicator">+</div>
+                </div>
+                <div class="achievement-details">
+                    <div class="details-content">
+                        <div class="details-section">
+                            <div class="details-title">The Challenge</div>
+                            <p class="details-text">
+                                Security review questionnaires, vendor assessments, customer security reviews, and compliance intake forms represented a significant manual workload with repetitive, high-volume responses that consumed engineering time better spent on detection and response work.
+                            </p>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">How I Did It</div>
+                            <ul>
+                                <li>Built a Python-based automation tool using the Anthropic API to intelligently respond to incoming security questionnaires based on organizational context</li>
+                                <li>Integrated directly with Jira for ticket creation, tracking, and workflow routing, eliminating the manual handoff between security review requests and response work</li>
+                                <li>Designed the system to handle both per-questionnaire review time reduction and the backlog of accumulated outstanding requests</li>
+                            </ul>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">Impact</div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">Significant</div>
+                                    <div class="metric-label">Manual Time Reduction</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">Backlog</div>
+                                    <div class="metric-label">Bottleneck Eliminated</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="details-section">
+                            <div class="tech-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Anthropic API</span>
+                                <span class="tech-tag">Jira</span>
+                                <span class="tech-tag">Security Automation</span>
+                                <span class="tech-tag">AI-Assisted Workflows</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flexe Card 3: AWS Threat Detection Deployment -->
+            <div class="achievement-item">
+                <div class="achievement-header">
+                    <div class="achievement-icon"></div>
+                    <div class="achievement-summary">
+                        Enabling AWS threat detection coverage by deploying CloudTrail, GuardDuty with S3 Protection, and VPC Flow Logs across an environment with 3TB+ of S3 data and no prior monitoring in place.
+                    </div>
+                    <div class="expand-indicator">+</div>
+                </div>
+                <div class="achievement-details">
+                    <div class="details-content">
+                        <div class="details-section">
+                            <div class="details-title">The Challenge</div>
+                            <p class="details-text">
+                                AWS environment with 3TB+ of S3 data had no threat detection or logging infrastructure, no CloudTrail, no GuardDuty, no VPC Flow Logs. Attacker activity across IAM, storage, and network layers would have been entirely invisible.
+                            </p>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">How I Did It</div>
+                            <ul>
+                                <li>Deploying CloudTrail for comprehensive API-level audit logging across the AWS environment</li>
+                                <li>Configuring GuardDuty with S3 Protection enabled to surface threat signals across IAM, network, and object storage layers</li>
+                                <li>Enabling VPC Flow Logs to establish network visibility and support lateral movement detection</li>
+                                <li>Building on findings from the cross-environment architecture assessment to prioritize detection coverage gaps by risk</li>
+                            </ul>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">Impact</div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">3TB+</div>
+                                    <div class="metric-label">S3 Data Now Monitored</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">Zero</div>
+                                    <div class="metric-label">Prior AWS Visibility</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">In Progress</div>
+                                    <div class="metric-label">Active Rollout</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="details-section">
+                            <div class="tech-tags">
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">GuardDuty</span>
+                                <span class="tech-tag">CloudTrail</span>
+                                <span class="tech-tag">VPC Flow Logs</span>
+                                <span class="tech-tag">S3 Protection</span>
+                                <span class="tech-tag">Threat Detection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div><!-- end Flexe achievements -->
+
+            <!-- OVERLAKE -->
+            <div class="job-header" style="margin-top: 60px;">
+                <div>
+                    <div class="job-title">Security Engineer II</div>
+                    <div class="company">Overlake Medical Center</div>
+                    <div class="location">Bellevue, WA</div>
+                </div>
+                <div class="date">
+                    April 2022 – February 2026
+                </div>
+            </div>
+
+            <div class="achievements">
+
+            <!-- Overlake Card 1: Sentinel SOAR Automation (LEAD CARD) -->
+            <div class="achievement-item">
+                <div class="achievement-header">
+                    <div class="achievement-icon"></div>
+                    <div class="achievement-summary">
+                        Automated threat detection and incident response in Microsoft Sentinel using Python, REST APIs, and SOAR playbooks, reducing triage time by 75% (from 1 hour to 15 minutes) for 200+ monthly incidents through IOC enrichment and workflow automation.
+                    </div>
+                    <div class="expand-indicator">+</div>
+                </div>
+                <div class="achievement-details">
+                    <div class="details-content">
+                        <div class="details-section">
+                            <div class="details-title">The Challenge</div>
+                            <p class="details-text">
+                                Security team was processing 200+ monthly incidents with manual triage averaging an hour per alert — analysts context-switching between threat intel sources, Sentinel, and EDR before they could even classify severity.
+                            </p>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">How I Did It</div>
+                            <ul>
+                                <li>Developed Python scripts for automatic IOC enrichment via VirusTotal and AbuseIPDB APIs, aggregating risk scores and writing context directly back to Sentinel incidents</li>
+                                <li>Created Logic App playbooks for automated incident categorization, analyst assignment, and low-severity auto-response (account lockdown, device isolation)</li>
+                                <li>Built Slack integration for real-time alert routing without requiring analysts to poll the queue</li>
+                                <li>Designed the system to reduce human touchpoints on low-signal alerts while preserving analyst decision authority on ambiguous cases</li>
+                            </ul>
+                            <div class="code-block">
+# Python automation for IOC enrichment
+import requests
+def enrich_ioc(indicator, indicator_type):
+    vt_result = query_virustotal(indicator)
+    abuse_result = query_abuseipdb(indicator)
+    risk_score = calculate_risk(vt_result, abuse_result)
+    update_incident_tags(incident_id, risk_score)
+    return risk_score</div>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">Impact</div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">75%</div>
+                                    <div class="metric-label">Faster Triage</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">15 min</div>
+                                    <div class="metric-label">Avg Response Time</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">200+</div>
+                                    <div class="metric-label">Monthly Incidents</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="details-section">
+                            <div class="tech-tags">
+                                <span class="tech-tag">Microsoft Sentinel</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Logic Apps</span>
+                                <span class="tech-tag">REST APIs</span>
+                                <span class="tech-tag">SOAR</span>
+                                <span class="tech-tag">IOC Enrichment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overlake Card 2: Threat Hunting & Detection Engineering -->
+            <div class="achievement-item">
+                <div class="achievement-header">
+                    <div class="achievement-icon"></div>
+                    <div class="achievement-summary">
+                        Conducted proactive threat hunting using KQL to identify behavioral anomalies — unusual login patterns, LOLBin abuse, PowerShell execution chains — and converted validated hunt logic into persistent behavioral detection rules mapped to MITRE ATT&CK.
+                    </div>
+                    <div class="expand-indicator">+</div>
+                </div>
+                <div class="achievement-details">
+                    <div class="details-content">
+                        <div class="details-section">
+                            <div class="details-title">The Challenge</div>
+                            <p class="details-text">
+                                Signature-based detection was missing attacker behaviors that didn't match known IOCs — particularly living-off-the-land techniques, abnormal authentication patterns, and PowerShell abuse that blended with legitimate admin activity.
+                            </p>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">How I Did It</div>
+                            <ul>
+                                <li>Conducted weekly proactive threat hunts using KQL across Sentinel data sources, investigating suspicious login patterns, RDP anomalies, and process execution chains</li>
+                                <li>Mapped findings to MITRE ATT&CK techniques to contextualize TTPs and identify detection coverage gaps</li>
+                                <li>Converted validated hunt logic into ~10 persistent behavioral detection rules — moving confirmed hypotheses from ad hoc queries into production analytics</li>
+                                <li>Built PowerShell scripts to audit Azure configuration drift and surface posture anomalies outside the endpoint telemetry stream</li>
+                            </ul>
+                            <div class="code-block">
+// KQL — detecting suspicious PowerShell execution
+SecurityEvent
+| where EventID == 4688
+| where Process has "powershell"
+| where CommandLine has_any ("IEX", "Invoke-Expression", "EncodedCommand")
+| summarize count() by Computer, Account, CommandLine
+| where count_ > 3</div>
+                        </div>
+                        <div class="details-section">
+                            <div class="details-title">Impact</div>
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">~10</div>
+                                    <div class="metric-label">Behavioral Detection Rules</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">Weekly</div>
+                                    <div class="metric-label">Hunt Cadence</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">Zero</div>
+                                    <div class="metric-label">IOC Dependency</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="details-section">
+                            <div class="tech-tags">
+                                <span class="tech-tag">KQL</span>
+                                <span class="tech-tag">MITRE ATT&CK</span>
+                                <span class="tech-tag">Threat Hunting</span>
+                                <span class="tech-tag">PowerShell</span>
+                                <span class="tech-tag">Behavioral Analysis</span>
                             </div>
                         </div>
                     </div>
@@ -1114,82 +1370,6 @@ SecurityEvent
                 </div>
             </div>
 
-            <div class="achievement-item">
-                <div class="achievement-header">
-                    <div class="achievement-icon"></div>
-                    <div class="achievement-summary">
-                        Developed Azure infrastructure as code using Bicep and ARM templates with CI/CD pipelines in Azure DevOps to automate deployments and reduce manual configuration work.
-                    </div>
-                    <div class="expand-indicator">+</div>
-                </div>
-                <div class="achievement-details">
-                    <div class="details-content">
-                        <div class="details-section">
-                            <div class="details-title">The Challenge</div>
-                            <p class="details-text">
-                                Manual infrastructure deployments were time-consuming, error-prone, and difficult to track for compliance purposes.
-                            </p>
-                        </div>
-                        <div class="details-section">
-                            <div class="details-title">How I Did It</div>
-                            <ul>
-                                <li>Built reusable Bicep templates for common infrastructure patterns</li>
-                                <li>Created Azure DevOps pipelines to automate infrastructure deployments</li>
-                                <li>Implemented Azure Policy guardrails to enforce compliance and provide automatic remediation</li>
-                                <li>Designed templates for scalable, highly available environments</li>
-                            </ul>
-                        </div>
-                        <div class="details-section">
-                            <div class="tech-tags">
-                                <span class="tech-tag">Bicep</span>
-                                <span class="tech-tag">ARM Templates</span>
-                                <span class="tech-tag">Azure DevOps</span>
-                                <span class="tech-tag">CI/CD</span>
-                                <span class="tech-tag">Azure Policy</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="achievement-item">
-                <div class="achievement-header">
-                    <div class="achievement-icon"></div>
-                    <div class="achievement-summary">
-                        Architected Azure networking infrastructure including Firewall, Load Balancers, NSGs, Private Links, and DNS to secure traffic flows and provide highly available services.
-                    </div>
-                    <div class="expand-indicator">+</div>
-                </div>
-                <div class="achievement-details">
-                    <div class="details-content">
-                        <div class="details-section">
-                            <div class="details-title">The Challenge</div>
-                            <p class="details-text">
-                                Complex networking requirements needed proper segmentation, traffic inspection, and secure connectivity between resources.
-                            </p>
-                        </div>
-                        <div class="details-section">
-                            <div class="details-title">How I Did It</div>
-                            <ul>
-                                <li>Deployed Azure Firewall with route tables to control east-west and north-south traffic</li>
-                                <li>Configured Layer 4 and Layer 7 load balancers for application availability</li>
-                                <li>Implemented NSGs and Private Links to secure resource access</li>
-                                <li>Managed Azure DNS zones for name resolution</li>
-                                <li>Created architecture diagrams and cost estimates for leadership review</li>
-                            </ul>
-                        </div>
-                        <div class="details-section">
-                            <div class="tech-tags">
-                                <span class="tech-tag">Azure Firewall</span>
-                                <span class="tech-tag">Load Balancers</span>
-                                <span class="tech-tag">NSGs</span>
-                                <span class="tech-tag">Private Link</span>
-                                <span class="tech-tag">Azure DNS</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         <!-- City of Renton Experience -->
         <div class="job-header" style="margin-top: 60px;">
@@ -1377,7 +1557,7 @@ SecurityEvent
 
                     <div class="skill-category">
                         <div class="skill-category-title">Location</div>
-                        <p class="details-text">Bellevue, WA</p>
+                        <p class="details-text">Seattle, WA</p>
                     </div>
                 </div>
             </div>
