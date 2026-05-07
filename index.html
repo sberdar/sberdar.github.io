@@ -866,9 +866,9 @@
                         <div class="details-section">
                             <div class="details-title">How I Did It</div>
                             <ul>
-                                <li>Developed Python scripts for automatic IOC enrichment via VirusTotal and AbuseIPDB APIs, aggregating risk scores and writing context directly back to Sentinel incidents</li>
+                                <li>Developed Python and PowerShell scripts for automatic IOC enrichment via VirusTotal and AbuseIPDB APIs, aggregating risk scores and writing context directly back to Sentinel incidents</li>
                                 <li>Created Logic App playbooks for automated incident categorization, analyst assignment, and low-severity auto-response (account lockdown, device isolation)</li>
-                                <li>Built Slack integration for real-time alert routing without requiring analysts to poll the queue</li>
+                                <li>Built Teams and Email integration for real-time alert routing without requiring analysts to poll the queue</li>
                                 <li>Designed the system to reduce human touchpoints on low-signal alerts while preserving analyst decision authority on ambiguous cases</li>
                             </ul>
                             <div class="code-block">
@@ -1138,80 +1138,7 @@ foreach ($server in $servers) {
                     </div>
                 </div>
             </div>
-
-            <div class="achievement-item">
-                <div class="achievement-header">
-                    <div class="achievement-icon"></div>
-                    <div class="achievement-summary">
-                        Automated threat detection and incident response in Microsoft Sentinel using Python, REST APIs, and SOAR playbooks, reducing triage time by 75% (from 1 hour to 15 minutes) for 200+ monthly incidents through IOC enrichment and workflow automation.
-                    </div>
-                    <div class="expand-indicator">+</div>
-                </div>
-                <div class="achievement-details">
-                    <div class="details-content">
-                        <div class="details-section">
-                            <div class="details-title">The Challenge</div>
-                            <p class="details-text">
-                                Security team was overwhelmed with 200+ monthly incidents requiring manual triage. Analysts spent an average of 1 hour per incident gathering context from multiple sources before determining severity and response actions.
-                            </p>
-                        </div>
-                        <div class="details-section">
-                            <div class="details-title">How I Did It</div>
-                            <p class="details-text">
-                                Built comprehensive SOAR automation framework:
-                            </p>
-                            <div class="code-block"># Python automation for IOC enrichment
-import requests
-
-def enrich_ioc(indicator, indicator_type):
-    # Query threat intel APIs
-    vt_result = query_virustotal(indicator)
-    abuse_result = query_abuseipdb(indicator)
-    
-    # Aggregate risk score
-    risk_score = calculate_risk(vt_result, abuse_result)
-    
-    # Update Sentinel incident
-    update_incident_tags(incident_id, risk_score)
-    return risk_score</div>
-                            <ul>
-                                <li>Developed Python scripts for automatic IOC enrichment via VirusTotal, AbuseIPDB APIs</li>
-                                <li>Created Logic App playbooks for automated incident categorization and assignment</li>
-                                <li>Built automatic response actions for low-severity incidents (account resets, device isolation)</li>
-                                <li>Implemented Slack integration for real-time analyst notifications</li>
-                            </ul>
-                        </div>
-                        <div class="details-section">
-                            <div class="details-title">Impact</div>
-                            <div class="metrics">
-                                <div class="metric">
-                                    <div class="metric-value">75%</div>
-                                    <div class="metric-label">Faster Triage</div>
-                                </div>
-                                <div class="metric">
-                                    <div class="metric-value">15 min</div>
-                                    <div class="metric-label">Avg Response Time</div>
-                                </div>
-                                <div class="metric">
-                                    <div class="metric-value">200+</div>
-                                    <div class="metric-label">Monthly Incidents</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="details-section">
-                            <div class="tech-tags">
-                                <span class="tech-tag">Microsoft Sentinel</span>
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Logic Apps</span>
-                                <span class="tech-tag">REST APIs</span>
-                                <span class="tech-tag">SOAR</span>
-                                <span class="tech-tag">IOC Enrichment</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+           
             <div class="achievement-item">
                 <div class="achievement-header">
                     <div class="achievement-icon"></div>
