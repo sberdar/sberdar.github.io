@@ -525,11 +525,119 @@
             font-size: 0.85rem;
             border: 1px solid var(--border);
         }
+        /* Writeup content styles */
+        .writeup-body h1, .writeup-body h2, .writeup-body h3 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-primary);
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .writeup-body p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        
+        .writeup-body pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        
+        .writeup-body code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+        }
+        
+        .writeup-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        
+        .writeup-body th {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-tertiary);
+            color: var(--accent-primary);
+            padding: 10px 14px;
+            text-align: left;
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .writeup-body td {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        .writeup-body tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+        
+        .writeup-body img {
+            max-width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin: 20px 0;
+        }
+        
+        .writeup-body ul, .writeup-body ol {
+            margin: 10px 0 16px 0;
+            padding-left: 0;
+        }
+        
+        .writeup-body ul li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .writeup-body ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+        }
+        
+        .writeup-body ol {
+            list-style: decimal;
+            padding-left: 20px;
+        }
+        
+        .writeup-body ol li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .writeup-body blockquote {
+            border-left: 4px solid var(--accent-primary);
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <div class="background-grid"></div>
-    
     <div class="container">
         <header>
             <div class="header-line"></div>
@@ -539,13 +647,14 @@
 
         <nav>
             <div class="nav-left">
-                <a class="nav-item active" data-page="about">About</a>
-                <a class="nav-item" data-page="experience">Experience</a>
-                <a class="nav-item" data-page="contact">Contact</a>
+                <a class="nav-item" href="/" data-page="about">About</a>
+                <a class="nav-item" href="/#experience" data-page="experience">Experience</a>
+                <a class="nav-item" href="/#contact" data-page="contact">Contact</a>
+                <a class="nav-item" href="/writeups/">Writeups</a>
             </div>
         </nav>
 
-        <!-- About Section -->
+                <!-- About Section -->
         <div id="about" class="page-section active">
             <div class="about-content">
                 <p class="about-intro">
@@ -1501,8 +1610,9 @@ SecurityEvent
 
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                e.preventDefault();
                 const targetPage = item.getAttribute('data-page');
+                if (!targetPage) return;
+                e.preventDefault();
                 console.log('Clicked:', targetPage);
                 
                 // Update active nav item
@@ -1563,5 +1673,6 @@ SecurityEvent
             });
         });
     </script>
+    </div>
 </body>
 </html>
