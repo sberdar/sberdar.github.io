@@ -1,1 +1,1 @@
-# sberder.dev
+# stanberd.com
