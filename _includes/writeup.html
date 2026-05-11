@@ -4,7 +4,7 @@ layout: base.html
 
 <div style="max-width: 800px;">
     <h2 class="section-heading" style="margin-bottom: 10px;">{{ title }}</h2>
-    <div class="date" style="text-align: left; margin-bottom: 40px;">{{ date | date: "%B %d, %Y" }}</div>
+    <div class="date" style="text-align: left; margin-bottom: 40px;">{{ date | date: "%B %d, %Y" }} | {{ content | readingTime }}</div>
     <div class="writeup-body">
         {{ content }}
     </div>
