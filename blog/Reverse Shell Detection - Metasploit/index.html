@@ -656,7 +656,7 @@
 
         
 <div style="max-width: 800px;">
-    <h2 class="section-heading" style="margin-bottom: 10px;">Detecting Reverse Shells</h2>
+    <h2 class="section-heading" style="margin-bottom: 10px;">Detecting Metasploit Reverse Shells</h2>
     <div class="date" style="text-align: left; margin-bottom: 40px;">May 08, 2026 | 13 min read</div>
     <div class="writeup-body">
         <h3>Intro</h3>
@@ -729,7 +729,7 @@
 </ul>
 <p>This polls Kali every 100ms continuously, unless stopped. If cmd produces any outputs, this loop sends it over the TCP socket.
 Is data arrives from Kali, this loop also writes it to the cmd.exe's stdin</p>
-<h3>What did we learn here?</h3>
+<h4>What did we learn here?</h4>
 <p>From a Detection perspective, we have several things to look for in our telemetry.</p>
 <ol>
 <li>cmd.exe spawned from PowerShell</li>
@@ -897,7 +897,7 @@ falsepositives:
 level: high
 
 </code></pre>
-<p>The condition uses OR login with a grouped AND, this means the rule has two independent detection paths. The rule fires if:</p>
+<p>The condition uses OR logic with a grouped AND, this means the rule has two independent detection paths. The rule fires if:</p>
 <ul>
 <li>Hidden Windows + no profile are present</li>
 <li>TCP socket creation <strong>and</strong> cmd.exe are both present in the script block</li>
