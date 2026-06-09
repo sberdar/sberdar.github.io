@@ -2,7 +2,8 @@
 layout: base.html
 ---
 <div style="max-width: 800px;">
-    {% for post in collections.blog %}
+    {% assign sortedPosts = collections.blog | reverse %}
+    {% for post in sortedPosts %}
     <div class="skill-category" style="margin-bottom: 20px;">
         <a href="{{ post.url }}" style="color: var(--accent-primary); text-decoration: none;">
             <div class="job-title">{{ post.data.title }}</div>
