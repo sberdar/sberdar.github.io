@@ -361,4 +361,4 @@ This lab was a good reminder that the best way to write detections is to think l
 
 In the next post, we'll dive into how a C2 framework like Sliver differs from a basic Reverse Shell and what detections can be built from that telemety. We'll also see why only relying on host based detection is not enough to detect APT-like activity.  
 
-Rules used in this post can be found here: [Sigma-Rules GitHub](https://github.com/sberdar/Sigma-Rules/tree/main/MSF%20Reverse%20Shell)
+Rules used in this post can be found here: [Detection-Rules GitHub](https://github.com/sberdar/Detection-Rules/tree/main/MSF%20Reverse%20Shell)
