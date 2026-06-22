@@ -654,45 +654,252 @@
             </div>
         </nav>
 
-        <div style="max-width: 800px;">
-    
-    
-    <div class="skill-category" style="margin-bottom: 20px;">
-        <a href="/blog/Behavioral Analysis/" style="color: var(--accent-primary); text-decoration: none;">
-            <div class="job-title">Behavioral Analysis with Python - Beaconing</div>
-        </a>
-        <div class="date" style="text-align: left; margin-top: 5px;">
-            June 22, 2026 
-        </div>
         
-        <p class="details-text" style="margin-top: 10px;">In the previous lab, we identified beaconing as a key behavioral indicator of C2 activity but acknowledged that detecting it requires more than endpoint telemetry. Sysmon couldn't see Sliver's in-memory execution, and HTTPS traffic on port 443 blends seamlessly with legitimate web traffic. NDR tools address this gap through statistical analysis of connection timing but what if you don't have an NDR solution, or it hasn't alerted?</p>
-        
+<div style="max-width: 800px;">
+    <h2 class="section-heading" style="margin-bottom: 10px;">Behavioral Analysis with Python - Beaconing</h2>
+    <div class="date" style="text-align: left; margin-bottom: 40px;">June 22, 2026 | 11 min read</div>
+    <div class="writeup-body">
+        <h4>Intro</h4>
+<p>In the previous lab, we identified beaconing as a key behavioral indicator of C2 activity but acknowledged that detecting it requires more than endpoint telemetry. Sysmon couldn't see Sliver's in-memory execution, and HTTPS traffic on port 443 blends seamlessly with legitimate web traffic. NDR tools address this gap through statistical analysis of connection timing but what if you don't have an NDR solution, or it hasn't alerted?</p>
+<p>This lab builds a lightweight Python script that an analyst can run on a suspicious endpoint's packet capture to identify beaconing behavior without enterprise tooling. The idea is simple, malware beacons at regular intervals, legitimate software doesn't (for the most part). By analyzing the statistical regularity of outbound connections we can surface C2 activity that signature-based tools miss.</p>
+<p>This isn't meant to replace an NDR solution or any enterprise tooling. This is a focused utility and something that an analyst can run during an investigation when purpose-built tools are available, haven't alerted or you just want a second opinion on suspicious traffic.</p>
+<p>When I took statistics in college, I assumed I would never apply it but look at me now.</p>
+<h4>Tools Used</h4>
+<p>As always, below is a list of tools used to build this lab.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sliver</td>
+<td>Generate realistic beacon traffic for analysis</td>
+</tr>
+<tr>
+<td>Wireshark/tcpdump</td>
+<td>Capture network traffic</td>
+</tr>
+<tr>
+<td>Python/Scapy</td>
+<td>Parse pcap and extract connection timestamps</td>
+</tr>
+<tr>
+<td>Python/Statistics</td>
+<td>Calculate intervals, standard deviation and CV (coefficient of variation)</td>
+</tr>
+</tbody>
+</table>
+<h4>Beaconing Theory</h4>
+<p>Beaconing theory is simple. Instead of maintaining a persistent connection, a beacon checks in at intervals, executes queued tasks, then goes quiet until the next check-in. A beacon is a drop of communication rather than a stream. Legitimate software rarely needs to check in on a fixed schedule. For example, DRM checks might happen once a day or when you launch an app. A beacon checking in every 60 seconds has a purpose.</p>
+<p>Modern C2 frameworks like Sliver add jitter to their beacon interval to avoid detection. Instead of checking in every exactly 60 seconds, it might check in at 55, 68, 71, or 58 seconds. Simple interval matching fails here because no two intervals are identical.</p>
+<p>This is where the Coefficient of Variation (CV) comes in. Standard deviation measures how much variation exists in absolute terms but it can't tell you whether that variation is significant relative to the interval. A 5 second deviation looks the same whether the beacon runs every 10 seconds or every 60 seconds, but those are different levels of regularity. CV divides standard deviation by the mean, normalizing the measurement. This lets us flag suspicious regularity at any beacon speed with a single threshold, because we're hunting for consistency rather than a specific interval.</p>
+<h4>Code Walkthrough</h4>
+<p>Let's go through each function and explain what it does so we can connect the theory to the execution.</p>
+<h5>CLI Usage</h5>
+<p>We can use the utility in two ways, either with arguments or without. Function <code>cli_args()</code> is self explanatory. We have three arguments that can be provided.</p>
+<ul>
+<li><code>--help</code> brings up a help menu</li>
+<li><code>-f or --file</code> lets us specify the input capture file in pcap format</li>
+<li><code>--local-ip</code> lets us exclude the local IP of the computer we are capturing network traffic</li>
+</ul>
+<pre><code>from collections import defaultdict
+from scapy.all import rdpcap
+import statistics, argparse
+
+def cli_args():
+    parser = argparse.ArgumentParser(description=&quot;Beacon Detection Script. Use with .pcap files.&quot;)
+    parser.add_argument(&quot;--local-ip&quot;, help=&quot;Local machine IP to be excluded from analysis&quot;)
+    parser.add_argument(&quot;-f&quot;, &quot;--file&quot;, help=&quot;Location of file&quot;)
+    args = parser.parse_args()
+
+    return args
+</code></pre>
+<p>None of the arguments are required so we can just run <code>python capture_analysis.py</code> and get an interactive cli prompt for our pcap file.</p>
+<p>Usage: <code>python capture_analysis.py -f capture.pcap --local-ip x.x.x.x</code><br>
+<img src="/assets/images/Pasted%20image%2020260620174047.png" alt=""></p>
+<h4>File Input</h4>
+<p>Next up is the <code>file_input()</code> function. As the name implies, this handles our capture file.
+First, we check for the <code>-f or --file</code> argument. If we find a file specified, we move on and return <code>cap</code> which uses the <code>rdpcap</code> function from <code>scapy.all</code></p>
+<p>We also handle errors such as a Keyboard interrupt (<code>Ctrl+C</code> during file prompt) and File not found if the file does not exist. This lets us have a clean cli screen during execution.</p>
+<pre><code>def file_input():
+    args = cli_args()
+    if args.file:
+        print(&quot;Processing Capture. This may take a minute...&quot;)
+        capture = args.file
+        cap = rdpcap(capture)
+        return cap
+
+    else:
+        while True:
+            try:
+                capture = input(f&quot;Enter File location: &quot;)
+            except KeyboardInterrupt:
+                print(&quot;\nExiting...&quot;)
+                exit(1)
+            try:
+                print(&quot;Processing Capture. This may take a minute...&quot;)
+                cap = rdpcap(capture)
+                return cap
+            except FileNotFoundError:
+                print(&quot;\nFile not found. Check name or directory and try again.&quot;)
+                continue
+</code></pre>
+<h4>Packet Capture Processing</h4>
+<p>The <code>parse_cap()</code> function is where the parsing of the pcap happens. Smaller files can be parsed quickly but a bigger file may take a little bit of time.</p>
+<p>An important thing to know with <code>rdpcap()</code> is it parses every packet fully, meaning all layers, fields and data is passed into our script and into memory, even if we're only looking for one or two specifics. Scapy is also pure Python, meaning there is no C acceleration for the parsing loop like we'd find with other libraries.</p>
+<p><code>defaultdict(list)</code> automatically creates an empty list for any new destination IP key, so we don't need to check if the key exists before appending. Keeps the code clean and readable.</p>
+<p>In this function, we're also looking at whether the packet has the TCP and IP layers, and if the flags are <code>S or SA</code>, meaning the start of the connection. Because the beacon is just a blip, we only need the start of the connection as that's when a machine checks in. Everything after that is just noise (for our purpose).</p>
+<p>Then, we're grouping our Source IPs and Timestamps by the <strong>Destination</strong> IP. The source IP isn't required for this to work but it's good to have anyway in case the network is a bit noisier. That way, we'll know what machine connected to the what destination at what time.</p>
+<pre><code>def parse_cap():
+    destIp = defaultdict(list)
+    cap = file_input()
+    for pkt in cap:
+        if pkt.haslayer('TCP') and pkt.haslayer('IP'):
+           if pkt[&quot;TCP&quot;].flags == 'S' or pkt[&quot;TCP&quot;].flags == 'SA':
+                destIp[(pkt[&quot;IP&quot;].dst)].append({
+                    &quot;Source IP&quot;: pkt[&quot;IP&quot;].src, 
+                    &quot;Timestamp&quot;: float(pkt.time)
+                    })
+    return destIp
+</code></pre>
+<h4>Statistics Calculation</h4>
+<p>With <code>calculate_std()</code>, we get into the math behind the theory. This is where our Destination IP, Source IP, and timestamp get analyzed.</p>
+<pre><code>def calculate_std():
+    result = parse_cap()
+    beacons_found = False
+    for dest_ip, connections in result.items():
+        try:
+            timestamps = [conn[&quot;Timestamp&quot;] for conn in connections]
+            interval = [timestamps[i+1] - timestamps[i] for i in range(len(timestamps)-1)]
+
+            if len(interval) &lt; 2:
+                continue
+
+            deviation = statistics.stdev(interval)
+            mean = statistics.mean(interval)
+            cv = deviation/mean
+            if cv &lt; 0.5 and len(timestamps) &gt;=5:
+                beacons_found = True
+                print(f&quot;--------------------------------&quot;)
+                print(f&quot;POTENTIAL BEACONING DETECTED&quot;)
+                print(f&quot;Destination: {dest_ip}&quot;)
+                print(f&quot;Packet count: {len(timestamps)}&quot;)
+                print(f&quot;Mean interval: {mean:.2f}s&quot;)
+                print(f&quot;StDev: {deviation:.2f}&quot;)
+                print(f&quot;CV: {cv:.2f}&quot;)
+                print(f&quot;--------------------------------&quot;)
+        except statistics.StatisticsError as e:
+            continue
+    if not beacons_found:
+        print(&quot;No beacons found.&quot;)
+</code></pre>
+<p>We have a variable called <code>beacons_found</code> that is set to <code>False</code>. This is used to track whether or not we enter our <code>if cv &lt; 0.5</code> loop because a potential beacon was found. If we enter the loop, the variable is flipped to <code>True</code> and we print the relevant info. If beacons are not found and we don't enter the loop, we enter the final <code>if not beacons_found</code> loop to finish the script.</p>
+<p>There are two for loops here. First, <code>timestamps</code> loop extracts the timestamps. This is Python shorthand so it might look weird or unfamiliar but the structure is the same as a regular for loop.
+<code>timestamps = [conn[&quot;Timestamp&quot;] for conn in connections]</code></p>
+<p>Longform would look like this:</p>
+<pre><code>timestamps = []
+for conn in connections:
+	timestamps.append(conn[&quot;Timestamp&quot;])
+</code></pre>
+<p>For reference, timestamp format looks like this:</p>
+<pre><code>&quot;X.X.X.X&quot;: [ 
+{ 
+&quot;Source IP&quot;: &quot;10.0.0.12&quot;, 
+&quot;Timestamp&quot;: 1781380894.417503 
+}, 
+{ 
+&quot;Source IP&quot;: &quot;10.0.0.12&quot;, 
+&quot;Timestamp&quot;: 1781380894.436258 
+}
+]
+</code></pre>
+<p>Then, we calculate the intervals between every <strong>two</strong> timestamps.<br>
+<code>interval = [timestamps[i+1] - timestamps[i] for i in range(len(timestamps)-1)]</code><br>
+Here, we are looking at <code>timestamp i and timestamp i+1</code> as a pair because math usually involves more than one thing in a vacuum.</p>
+<p><code>if len(interval) &lt; 2: continue</code> is a safety check for the next portion. We need to have more than one interval to check the standard deviation and mean. If we have less than two, then we'd get an error.</p>
+<p>This is where the magic happens. Thankfully, the statistics module allows us to not to do any manual math. We're calculating the standard deviation, mean and the coefficient of variance here.</p>
+<pre><code>deviation = statistics.stdev(interval)
+mean = statistics.mean(interval)
+cv = deviation/mean
+</code></pre>
+<p>This next part requires some judgment, research, and testing. We're looking for two things in our <code>if</code> statement. If both of those are satisfied, then we have a potential beacon.</p>
+<ul>
+<li>make sure the <code>cv</code> is less than <code>0.5</code> which means it's <strong>regular</strong></li>
+<li>make sure we have 5 or more timestamps to work with.</li>
+</ul>
+<pre><code>if cv &lt; 0.5 and len(timestamps) &gt;=5:
+				beacons_found = True
+                print(f&quot;--------------------------------&quot;)
+                print(f&quot;POTENTIAL BEACONING DETECTED&quot;)
+                print(f&quot;Destination: {dest_ip}&quot;)
+                print(f&quot;Packet count: {len(timestamps)}&quot;)
+                print(f&quot;Mean interval: {mean:.2f}s&quot;)
+                print(f&quot;StDev: {deviation:.2f}&quot;)
+                print(f&quot;CV: {cv:.2f}&quot;)
+                print(f&quot;--------------------------------&quot;)
+        except statistics.StatisticsError as e:
+            continue
+</code></pre>
+<p>As a handy guide, this is what the internet says.
+Based on this, our threshold of 0.5 sits between Regular and Random. Anything below 0.5 is worth investigating.</p>
+<table>
+<thead>
+<tr>
+<th>CV Range</th>
+<th>Traffic Characteristic</th>
+<th>Common Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low (&lt; 0.2)</td>
+<td>Highly Deterministic</td>
+<td>Scheduled cron jobs, hardcoded system pings</td>
+</tr>
+<tr>
+<td>Moderate (0.2 - 0.7)</td>
+<td>Regular / Assisted</td>
+<td>Polling, active streaming</td>
+</tr>
+<tr>
+<td>Random (= 1.0)</td>
+<td>Memoryless / Poisson</td>
+<td>Traditional, independent user session starts</td>
+</tr>
+<tr>
+<td>High (&gt; 1.0)</td>
+<td>Heavy-Tailed / Bursty</td>
+<td>Human web browsing, flash crowds, DDoS attacks</td>
+</tr>
+</tbody>
+</table>
+<h4>Results</h4>
+<p>I captured about 10-15 minutes worth of network traffic while our Sliver beacon was running and because I knew what the &quot;attacker&quot; IP was, I could verify whether the script correctly identified the beacon traffic.</p>
+<p>Below are the results.
+<img src="/assets/images/Pasted%20image%2020260620185154.png" alt=""></p>
+<pre><code>--------------------------------
+POTENTIAL BEACONING DETECTED
+Destination: 10.0.0.19
+Packet count: 7
+Mean interval: 75.83s
+StDev: 11.97
+CV: 0.16
+--------------------------------
+</code></pre>
+<p>The output is destination IP, how many packets were sent, the mean interval between each packet, the standard deviation and the CV. A CV of 0.16 puts us in the highly deterministic range from our reference table above, too regular to be a coincidence. Combined with the mean interval of 75.83 seconds aligning closely with Sliver's default beacon interval, this is a strong indicator of C2 activity.</p>
+<p>For an analyst, the StDev and CV information may not matter but it's good to have in case we want to investigate why this popped up.</p>
+<p>Seven check-ins in roughly 15 minutes is consistent with a ~75s beacon interval so our math checks out.</p>
+<h4>Conclusion</h4>
+<p>Using Python, we demonstrated that even an advanced framework like Sliver can be detected. We used statistics and judgment to set thresholds for the CV and even with jitter, Sliver was detected. A CV of 0.16 against Sliver's jittered beacon is a concrete result, not just a proof of concept. Even though this is a relatively simple utility, the result demonstrated that options exist even without an enterprise budget. That said, self-built utilities have real limitations and we should be honest about how much we can rely on them.</p>
+<p>The biggest limitation is scope. We are reduced to point-in-time captures from a single machine that do not show us how the device behaved the previous day. Enterprise tooling which includes SIEMs, EDR, NDR, ML/AI and identity protection provides continuous visibility, broader context and correlation across the entire environment. This goes for all types of security tools. Rule of thumb: If your self hosted solution is that good, you should start a company.</p>
+<p>The biggest takeaway is defense in depth. We saw the gaps regular monitoring has when faced with a more advanced threat. Defense in depth allows us to analyze more than one layer of our environment and catch potential threats. We saw in the previous Metasploit and Sliver labs the evolution of detection. Metasploit was trivial; Sliver was significantly more difficult and this exercise built a utility out of the information we gathered.</p>
+<p>When people ask &quot;Will I ever need to code?&quot; or &quot;Do I really need to know math for security?&quot;, they can be pointed here. The answer is nuanced. Both skills make you a better defender, and while AI can accelerate the work, it shouldn't replace thinking. We should still analyze, question, rework and argue with AI to get the results we want and most importantly, understand the context behind every decision made.</p>
+<p>The script is available here: <a href="https://github.com/sberdar/Detection-Rules/blob/main/capture%20analysis.py">GitHub Script</a></p>
+
     </div>
-    
-    <div class="skill-category" style="margin-bottom: 20px;">
-        <a href="/blog/Reverse Shell Detection - Sliver/" style="color: var(--accent-primary); text-decoration: none;">
-            <div class="job-title">Detecting Sliver Reverse Shells</div>
-        </a>
-        <div class="date" style="text-align: left; margin-top: 5px;">
-            June 08, 2026 
-        </div>
-        
-        <p class="details-text" style="margin-top: 10px;">Unlike the previous method, in a real world scenario we will almost never have a clean piece of code to evaluate before it is run by a malicious actor. Because modern C2 frameworks use encryption, and are generally more complex than a Metasploit generated reverse shell, it is harder to detect. Given this, how do we approach detecting APTs using real world frameworks?</p>
-        
-    </div>
-    
-    <div class="skill-category" style="margin-bottom: 20px;">
-        <a href="/blog/Reverse Shell Detection - Metasploit/" style="color: var(--accent-primary); text-decoration: none;">
-            <div class="job-title">Detecting Metasploit Reverse Shells</div>
-        </a>
-        <div class="date" style="text-align: left; margin-top: 5px;">
-            May 08, 2026 
-        </div>
-        
-        <p class="details-text" style="margin-top: 10px;">Reverse Shells are a common exploit used by C2 frameworks, APTs and Red Team operators. They are fairly easy to configure and provide a way for the actor to control a target device. But what logs are generated by them and how can they be detected?</p>
-        
-    </div>
-    
 </div>
     </div>
 </body>
